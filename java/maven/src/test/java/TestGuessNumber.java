@@ -36,4 +36,46 @@ public class TestGuessNumber {
         GuessNumber guessNumber = new GuessNumber();
         assertThat(guessNumber.getTips(input, guess)).isEqualTo("1A3B");
     }
+
+    @Test
+    public void testCheckInputMoreThanFour(){
+        String input = "12345";
+        GuessNumber guessNumber = new GuessNumber();
+        assertThat(guessNumber.checkInput(input)).isEqualTo(false);
+    }
+
+    @Test
+    public void testCheckInputLessThanFour(){
+        String input = "123";
+        GuessNumber guessNumber = new GuessNumber();
+        assertThat(guessNumber.checkInput(input)).isEqualTo(false);
+    }
+
+    @Test
+    public void testCheckInputEqualFour(){
+        String input = "1234";
+        GuessNumber guessNumber = new GuessNumber();
+        assertThat(guessNumber.checkInput(input)).isEqualTo(true);
+    }
+
+    @Test
+    public void testCheckInputFourDuplicate(){
+        String input = "1234";
+        GuessNumber guessNumber = new GuessNumber();
+        assertThat(guessNumber.checkInput(input)).isEqualTo(true);
+    }
+
+    @Test
+    public void testCheckInputZeroDuplicate(){
+        String input = "1111";
+        GuessNumber guessNumber = new GuessNumber();
+        assertThat(guessNumber.checkInput(input)).isEqualTo(false);
+    }
+
+    @Test
+    public void testCheckInputHadSameNumber(){
+        String input = "1214";
+        GuessNumber guessNumber = new GuessNumber();
+        assertThat(guessNumber.checkInput(input)).isEqualTo(false);
+    }
 }

@@ -20,4 +20,25 @@ public class GuessNumber {
         }
         return countA + "A" + (numCount - countA) + "B";
     }
+
+    public boolean isDuplicateNumber(String inStr){
+     for (int i = 0; i < inStr.length(); i++){
+         if(inStr.indexOf(inStr.charAt(i)) != inStr.lastIndexOf(inStr.charAt(i))){
+             return true;
+         }
+     }
+        return false;
+    }
+
+    public boolean checkInput(String inputStr){
+        if(4 != inputStr.length()){
+            System.out.print("Please input 4 numbers!\n");
+            return false;
+        }
+        if(isDuplicateNumber(inputStr)){
+            System.out.print("Cannot input duplicate numbers!\n");
+            return false;
+        }
+        return true;
+    }
 }
