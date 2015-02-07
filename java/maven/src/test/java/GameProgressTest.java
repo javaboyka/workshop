@@ -1,6 +1,7 @@
 /**
  * Created by zzy on 2/7/15.
  */
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
 
@@ -10,10 +11,17 @@ import static org.mockito.Mockito.*;
 
 public class GameProgressTest {
 
+    private PrintStream out;
+    private GameProgress game;
+
+    @Before
+    public void setUp(){
+        out = mock(PrintStream.class);
+
+        game = new GameProgress(out);
+    }
     @Test
     public void should_print_welcome_when_game_start(){
-        PrintStream out = mock(PrintStream.class);
-        GameProgress game = new GameProgress(out);
 
         verify(out, never()).println("welcome!");
         game.start();
@@ -22,8 +30,6 @@ public class GameProgressTest {
 
     @Test
     public void should_print_input_after_game_start(){
-        PrintStream out = mock(PrintStream.class);
-        GameProgress game = new GameProgress(out);
 
         game.start();
         InOrder inOrder = inOrder(out);
