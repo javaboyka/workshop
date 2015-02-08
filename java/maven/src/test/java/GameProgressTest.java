@@ -18,6 +18,7 @@ public class GameProgressTest {
     private GameProgress game;
     private BufferedReader reader;
     private GetRandomNumber getRandomNumber;
+    private InOrder inOrder;
 
     @Before
     public void setUp() throws IOException {
@@ -30,6 +31,7 @@ public class GameProgressTest {
         given(getRandomNumber.getRandomNumber()).willReturn("4321");
 
         game = new GameProgress(out, reader, guessNumber, getRandomNumber);
+        inOrder = inOrder(out);
     }
     @Test
     public void should_print_welcome_when_game_start() throws IOException {
@@ -43,7 +45,6 @@ public class GameProgressTest {
     public void should_print_input_after_game_start() throws IOException {
 
         game.start();
-        InOrder inOrder = inOrder(out);
         inOrder.verify(out).println("welcome!");
         inOrder.verify(out).println("please input your number(6):");
 
@@ -51,13 +52,30 @@ public class GameProgressTest {
 
     @Test
     public void should_reduce_one_chance_when_guess_wrong() throws IOException {
-
         game.start();
 
-        InOrder inOrder = inOrder(out);
         inOrder.verify(out).println("welcome!");
         inOrder.verify(out).println("please input your number(6):");
         inOrder.verify(out).println("0A4B");
         inOrder.verify(out).println("please input your number(5):");
+    }
+
+    @Test
+    public void should_reduce_chances_one_by_one_until_game_over() throws IOException {
+        game.start();
+        inOrder.verify(out).println("welcome!");
+        inOrder.verify(out).println("please input your number(6):");
+        inOrder.verify(out).println("0A4B");
+        inOrder.verify(out).println("please input your number(5):");
+        inOrder.verify(out).println("0A4B");
+        inOrder.verify(out).println("please input your number(4):");
+        inOrder.verify(out).println("0A4B");
+        inOrder.verify(out).println("please input your number(3):");
+        inOrder.verify(out).println("0A4B");
+        inOrder.verify(out).println("please input your number(2):");
+        inOrder.verify(out).println("0A4B");
+        inOrder.verify(out).println("please input your number(1):");
+        inOrder.verify(out).println("0A4B");
+        inOrder.verify(out).println("Game Over");
     }
 }
