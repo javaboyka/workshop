@@ -21,15 +21,23 @@ public class GameProgress {
     public void start() throws IOException {
         out.println("welcome!");
         String answer = getRandomNumber.getRandomNumber();
+        String tips = "";
         int roundCount = 6;
 
         while (roundCount > 0){
             out.println("please input your number("+roundCount+"):");
             String input = reader.readLine();
-            String tips = guessNumber.getTips(input, answer);
+            tips = guessNumber.getTips(input, answer);
 
+            if("4A0B".equals(tips)){
+                break;
+            }
             out.println(tips);
             roundCount--;
+        }
+        if("4A0B".equals(tips)){
+            out.println("Congratulation!!");
+            return;
         }
         out.println("Game Over");
 
